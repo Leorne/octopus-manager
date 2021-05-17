@@ -15,7 +15,6 @@
     "doctrine/orm": "3.0.x-dev",
     "lexik/jwt-authentication-bundle": "2.x-dev",
     "phpdocumentor/reflection-docblock": "5.x-dev",
-    "ramsey/uuid": "4.x-dev",
     "sensio/framework-extra-bundle": "^6.1",
     "symfony/asset": "*",
     "symfony/console": "*",

@@ -2,7 +2,7 @@
 
 namespace App\Project\Repository;
 
-class ProjectRepository
+class ParticipantRepository
 {
 
 }
