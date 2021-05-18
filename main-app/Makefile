@@ -2,7 +2,6 @@ up: docker-up
 down: docker-down
 restart: down up
 
-
 docker-up:
 	docker-compose up -d
 
@@ -13,7 +12,7 @@ docker-build:
 	docker-compose build
 
 composer-install:
-	docker-compose run --rm php-cli composer install
+	docker-compose run --rm main-php-cli composer install
 
-assets-install:
-	docker-compose run --rm
+test:
+	docker-compose run --rm main-php-cli php bin/phpunit

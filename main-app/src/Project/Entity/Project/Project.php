@@ -2,12 +2,12 @@
 
 namespace App\Project\Entity\Project;
 
-use App\Project\Entity\Participant\Participant;
-use App\Project\Repository\ProjectRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as Orm;
-use JetBrains\PhpStorm\Pure;
+use Doctrine\Common\Collections\Collection;
+use App\Project\Repository\ProjectRepository;
+use App\Project\Entity\Participant\Participant;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[
     Orm\Entity(repositoryClass: ProjectRepository::class),
@@ -30,17 +30,27 @@ class Project
     #[Orm\Column(type: 'string', nullable: true)]
     private ?string $logo = null;
 
+    #[Orm\Column(name: 'created_at', type: 'datetime', nullable: false)]
+    private DateTimeImmutable $createdAt;
+
+    #[Orm\Column(name: 'updated_at', type: 'datetime', nullable: false)]
+    private DateTimeImmutable $updatedAt;
+
     #[
         Orm\ManyToMany(targetEntity: Participant::class),
         Orm\JoinTable(name: 'project__participant_projects')
     ]
     private Collection $participants;
 
-    #[Pure] public function __construct(Id $id, string $name)
+    public function __construct(Id $id, string $name)
     {
-        $this->$id = $id;
-        $this->name = $name;
+        $this->id = $id;
         $this->participants = new ArrayCollection();
+        $this->setName($name);
+
+        $now = new DateTimeImmutable('now');
+        $this->setCreatedAt($now);
+        $this->setUpdatedAt($now);
     }
 
     public function getId(): Id
@@ -63,6 +73,16 @@ class Project
         return $this->logo;
     }
 
+    public function getCreatedAt(): DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt(): DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -81,7 +101,19 @@ class Project
         return $this;
     }
 
-    public function addParticipant(Participant $participant) : self
+    public function setCreatedAt(DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function setUpdatedAt(DateTimeImmutable $updated): self
+    {
+        $this->updatedAt = $updated;
+        return $this;
+    }
+
+    public function addParticipant(Participant $participant): self
     {
         $this->participants->add($participant);
         $participant->addProject($this);

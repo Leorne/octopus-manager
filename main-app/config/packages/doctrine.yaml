@@ -17,3 +17,9 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Project/Entity'
                 prefix: 'App\Project\Entity'
                 alias: Project
+            Authentication:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Authentication/Entity'
+                prefix: 'App\Authentication\Entity'
+                alias: Authentication

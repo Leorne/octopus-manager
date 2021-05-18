@@ -2,8 +2,8 @@
 
 namespace App\Project\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route(path: '/project', name: 'project')]
 class ProjectController extends AbstractController

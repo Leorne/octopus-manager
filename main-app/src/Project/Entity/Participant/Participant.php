@@ -2,24 +2,27 @@
 
 namespace App\Project\Entity\Participant;
 
+use Doctrine\ORM\Mapping as Orm;
 use App\Project\Entity\Project\Project;
-use App\Project\Repository\ParticipantRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping\Entity;
-use Doctrine\ORM\Mapping\JoinTable;
-use Doctrine\ORM\Mapping\ManyToMany;
-use Doctrine\ORM\Mapping\Table;
+use Doctrine\Common\Collections\ArrayCollection;
+use App\Project\Repository\ParticipantRepository;
 
 #[
-    Entity(repositoryClass: ParticipantRepository::class),
-    Table(name: 'project__participants')
+    Orm\Entity(repositoryClass: ParticipantRepository::class),
+    Orm\Table(name: 'project__participants')
 ]
 class Participant
 {
     #[
-        ManyToMany(targetEntity: Project::class),
-        JoinTable(name: 'project__participant_projects')
+        Orm\Id,
+        Orm\Column(type: 'project__participant_id')
+    ]
+    private Id $id;
+
+    #[
+        Orm\ManyToMany(targetEntity: Project::class),
+        Orm\JoinTable(name: 'project__participant_projects')
     ]
     private Collection $projects;
 
