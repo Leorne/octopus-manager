@@ -15,5 +15,8 @@ class ProjectTest extends TestCase
         $project = new Project($id, $name);
         $this->assertEquals($project->getId(), $id);
         $this->assertEquals($project->getName(), $name);
+        $this->assertTrue($project->getCreatedAt()->getTimestamp() === (new \DateTimeImmutable())->getTimestamp());
+        $this->assertTrue($project->getUpdatedAt()->getTimestamp() === (new \DateTimeImmutable())->getTimestamp());
+        $this->assertTrue($project->getUpdatedAt()->getTimestamp() === (new \DateTimeImmutable())->getTimestamp());
     }
 }
