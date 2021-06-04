@@ -2,11 +2,13 @@
 
 namespace App\Authentication\Entity\User;
 
-use App\Authentication\Entity\Session\Session;
-use App\Authentication\Repository\UserRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as Orm;
 use Doctrine\Common\Collections\Collection;
+use App\Authentication\Entity\Session\Session;
+use App\Authentication\Entity\User\Token\Tokens;
+use App\Authentication\Repository\UserRepository;
 
 #[
     Orm\Entity(repositoryClass: UserRepository::class),
@@ -23,23 +25,17 @@ class User
     #[Orm\Embedded(class: Name::class)]
     private Name $name;
 
-    #[Orm\Column(type: 'user__user_email')]
+    #[Orm\Embedded(class: Email::class)]
     private Email $email;
 
     #[Orm\Embedded(class: Password::class)]
     private Password $password;
 
-    #[Orm\Column(type: 'string', nullable: true)]
-    private ?string $photo;
-
     #[Orm\Embedded(class: Status::class)]
     private Status $status;
 
-    #[Orm\Embedded(class: ConfirmationToken::class)]
-    private ConfirmationToken $confirmationToken;
-
-    #[Orm\Embedded(class: ResetToken::class)]
-    private ResetToken $resetToken;
+    #[Orm\Embedded(class: Tokens::class)]
+    private Tokens $tokens;
 
     #[Orm\OneToMany(mappedBy: 'user', targetEntity: Session::class)]
     private Collection $sessions;
@@ -54,6 +50,11 @@ class User
     {
         $this->id = $id;
         $this->email = $email;
+
+        $this->status = new Status(Status::STATUS_WAIT);
+        $this->password = new Password();
+        $this->name = new Name();
+        $this->sessions = new ArrayCollection();
 
         $now = new DateTimeImmutable('now');
         $this->setCreatedAt($now);
@@ -158,5 +159,10 @@ class User
         return $this;
     }
 
+    public function setPassword(Password $password): self
+    {
+        $this->password = $password;
+        return $this;
+    }
 
 }

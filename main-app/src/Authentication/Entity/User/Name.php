@@ -13,15 +13,9 @@ class Name
     #[Orm\Column(name: 'last_name', type: 'string', nullable: true)]
     private ?string $lastName;
 
-    #[Orm\Column(name: 'nickname', type: 'string', nullable: false)]
+    #[Orm\Column(name: 'nickname', type: 'string', nullable: true)]
     private string $nickname;
 
-    public function __construct(string $nickName, ?string $firstName = null, ?string $lastName = null)
-    {
-        $this->nickname = $nickName;
-        $this->firstName = $firstName;
-        $this->lastName = $lastName;
-    }
 
     public function getFirstName(): ?string
     {
