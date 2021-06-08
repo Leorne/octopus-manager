@@ -8,18 +8,16 @@ doctrine:
         #server_version: '13'
     orm:
         auto_generate_proxy_classes: true
-        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
-        auto_mapping: true
         mappings:
             Project:
                 is_bundle: false
-                type: annotation
+                type: attribute
                 dir: '%kernel.project_dir%/src/Project/Entity'
                 prefix: 'App\Project\Entity'
                 alias: Project
             Authentication:
                 is_bundle: false
-                type: annotation
+                type: attribute
                 dir: '%kernel.project_dir%/src/Authentication/Entity'
                 prefix: 'App\Authentication\Entity'
                 alias: Authentication

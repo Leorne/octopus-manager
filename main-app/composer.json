@@ -38,7 +38,7 @@
     "symfony/serializer": "5.*",
     "symfony/string": "*",
     "symfony/translation": "*",
-    "symfony/twig-bundle": "5.x-dev",
+    "symfony/twig-bundle": "5.4.x-dev",
     "symfony/validator": "*",
     "symfony/web-link": "*",
     "symfony/yaml": "*",
@@ -46,14 +46,14 @@
     "twig/twig": "^2.12|^3.0"
   },
   "require-dev": {
-    "symfony/browser-kit": "5.x-dev",
-    "symfony/css-selector": "5.x-dev",
-    "symfony/debug-bundle": "5.x-dev",
+    "symfony/browser-kit": "5.4.x-dev",
+    "symfony/css-selector": "5.4.x-dev",
+    "symfony/debug-bundle": "5.4.x-dev",
     "symfony/maker-bundle": "^1.0",
-    "symfony/phpunit-bridge": "5.x-dev",
-    "symfony/stopwatch": "5.x-dev",
-    "symfony/var-dumper": "5.x-dev",
-    "symfony/web-profiler-bundle": "5.x-dev"
+    "symfony/phpunit-bridge": "5.4.x-dev",
+    "symfony/stopwatch": "5.4.x-dev",
+    "symfony/var-dumper": "5.4.x-dev",
+    "symfony/web-profiler-bundle": "5.4.x-dev"
   },
   "config": {
     "optimize-autoloader": true,

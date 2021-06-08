@@ -2,10 +2,12 @@
 
 namespace App\Authentication\Entity\User;
 
+use Stringable;
+use JetBrains\PhpStorm\Pure;
 use Doctrine\ORM\Mapping as Orm;
 
 #[Orm\Embeddable]
-class Name
+class Name implements Stringable
 {
     #[Orm\Column(name: 'first_name', type: 'string', nullable: true)]
     private ?string $firstName;
@@ -15,6 +17,13 @@ class Name
 
     #[Orm\Column(name: 'nickname', type: 'string', nullable: true)]
     private string $nickname;
+
+    public function __construct(string $nickname)
+    {
+        $this->nickname = $nickname;
+        $this->firstName = null;
+        $this->lastName = null;
+    }
 
 
     public function getFirstName(): ?string
@@ -48,5 +57,29 @@ class Name
     {
         $this->nickname = $nickname;
         return $this;
+    }
+
+    public function getFullName(): ?string
+    {
+        $firstNameEmpty = empty($this->firstName);
+        $lastNameEmpty = empty($this->lastName);
+
+        if ($firstNameEmpty && $lastNameEmpty) {
+            return null;
+        }
+
+        if ($firstNameEmpty) {
+            return $this->lastName;
+        }
+        if ($lastNameEmpty) {
+            return $this->firstName;
+        }
+
+        return sprintf("%s %s", $this->firstName, $this->lastName);
+    }
+
+    #[Pure] public function __toString()
+    {
+        return $this->getNickname();
     }
 }

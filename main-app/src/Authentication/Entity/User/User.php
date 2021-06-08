@@ -12,7 +12,8 @@ use App\Authentication\Repository\UserRepository;
 
 #[
     Orm\Entity(repositoryClass: UserRepository::class),
-    Orm\HasLifecycleCallbacks
+    Orm\HasLifecycleCallbacks,
+    Orm\Table(name: 'user__user')
 ]
 class User
 {
@@ -53,7 +54,7 @@ class User
 
         $this->status = new Status(Status::STATUS_WAIT);
         $this->password = new Password();
-        $this->name = new Name();
+        $this->name = new Name($this->id->getValue());
         $this->sessions = new ArrayCollection();
 
         $now = new DateTimeImmutable('now');
